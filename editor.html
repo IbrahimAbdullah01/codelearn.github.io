@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor Pro</title>
+    <link rel="stylesheet" href="prism/prism2.css">
+
+    <style>
+  
+  @font-face{
+  font-family: fc;
+  src: url(./prism/fc.ttf);
+}
+ @font-face{
+  font-family: jbm;
+  src: url(./prism/jbm.ttf);
+}
+
+textarea::selection {
+  background-color: #c084fc; /* Purple background */
+  color: #fff; 
+}
+
+
+/* --- Root Variables and Basic Reset --- */
+:root {
+    /* Dark Purple Gradient Theme Colors */
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f3460;
+    --text-color: #e2e2f0;
+    --text-muted: #8888aa;
+    --accent-color: #a56eff; /* Purple accent */
+    --accent-light: #c89eff;
+    --accent-dark: #7b38e0;
+    --border-color: #3b3b5a;
+    --button-bg: #2c2c54;
+    --button-hover-bg: #4b4b80;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --editor-bg: #252542;
+    
+    /* Editor Configuration */
+    --editor-font-family: jmb,fc,Courier New, Courier, monospace;
+    --editor-font-size: 14px;
+    --editor-line-height: 1.5;
+    --header-height: 48px; /* Slightly taller toolbar */
+    --footer-height: 48px; /* Matching button menu height */
+    --border-radius: 6px; /* Consistent rounded corners */
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Enforce Full Screen, No Overflow --- */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-tertiary));
+    color: var(--text-color);
+}
+
+/* --- Editor Container - Main Layout --- */
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Editor Logo and Branding --- */
+.editor-container::before {
+    content: "Code Editor Pro";
+    position: absolute;
+    bottom: calc(var(--footer-height) + 15px);
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(165, 110, 255, 0.1);
+    font-family: 'Arial', sans-serif;
+    pointer-events: none;
+    letter-spacing: 1px;
+    transform: rotate(-45deg);
+    z-index: 0;
+}
+
+/* --- Toolbar --- */
+.toolbar {
+    background: linear-gradient(to right, var(--bg-secondary), var(--bg-tertiary));
+    padding: 0 15px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: var(--header-height);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    position: relative;
+    z-index: 10;
+}
+
+.toolbar::-webkit-scrollbar {
+    height: 5px;
+}
+
+.toolbar button {
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 7px 12px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px var(--shadow-color);
+    min-width: 80px;
+    justify-content: center;
+}
+
+.toolbar button:hover,
+.toolbar button:focus {
+    background:  var(--button-hover-bg) ;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.toolbar button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 0 2px var(--accent-dark);
+}
+
+.toolbar button svg {
+    vertical-align: middle;
+    filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.2));
+    fill: var(--accent-light);
+}
+
+/* --- Editor Area Layout --- */
+.editor-area {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: calc(100% - var(--header-height) - var(--footer-height));
+    background-color: var(--editor-bg);
+    border-radius: 0;
+    box-shadow: inset 0 0 10px var(--shadow-color);
+}
+
+/* --- Line Numbers --- */
+.line-numbers {
+    background-color: var(--bg-secondary);
+    padding: 10px 4px 10px 15px;
+    font-family: var(--editor-font-family);
+    font-size: var(--editor-font-size);
+    line-height: var(--editor-line-height);
+    color: var(--text-muted);
+    text-align: right;
+    user-select: none;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    min-width: 45px;
+    overflow: hidden;
+    box-shadow: 2px 0 4px var(--shadow-color);
+}
+
+.line-numbers span {
+    display: block;
+    min-width: 20px;
+    position: relative;
+}
+
+.line-numbers span::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    width: 4px;
+    height: 1px;
+    background-color: var(--border-color);
+    opacity: 0.5;
+}
+
+/* --- Code Wrapper --- */
+.code-wrapper {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.4), rgba(15, 52, 96, 0.4));
+}
+
+/* --- Shared styles for textarea and pre --- */
+#code-input, #highlighting-area {
+    margin: 0;
+    padding: 10px;
+    font-family: var(--editor-font-family);
+    font-size: var(--editor-font-size);
+    line-height: var(--editor-line-height);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    white-space: pre;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    overflow: hidden !important;
+}
+
+/* --- Textarea (where user types) --- */
+#code-input {
+    background-color: transparent;
+    color: transparent;
+    caret-color: var(--accent-light);
+    resize: none;
+    outline: none;
+    z-index: 1;
+    overflow: auto !important;
+}
+
+#code-input:focus {
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* --- Highlighting Area --- */
+#highlighting-area {
+    z-index: 0;
+    pointer-events: none;
+}
+
+#highlighting-area code {
+    display: block;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+/* Custom syntax highlighting enhancements */
+.token.punctuation {
+    color: #bbbbcc;
+}
+
+.token.tag {
+    color: #da70d6;
+}
+
+.token.attr-name {
+    color: #87ceeb;
+}
+
+.token.attr-value {
+    color: #7fff00;
+}
+
+.token.string {
+    color: #ffa07a;
+}
+
+.token.function {
+    color: #6a98e0;
+}
+
+.token.keyword {
+    color: #c792ea;
+    font-weight: bold;
+}
+
+.token.comment {
+    color: #6c7a89;
+    font-style: italic;
+}
+
+/* --- Fixed Bottom Button Menu --- */
+.button-menu {
+    background: linear-gradient(to right, var(--bg-secondary), var(--bg-tertiary));
+    padding: 0 10px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    overflow: hidden;
+    height: var(--footer-height);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 -2px 8px var(--shadow-color);
+    position: relative;
+    z-index: 10;
+}
+
+.button-menu-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    padding: 6px 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.button-menu-scroll::-webkit-scrollbar {
+    height: 3px;
+}
+
+.button-menu button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 7px 12px;
+    margin: 0;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    min-width: 40px;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px var(--shadow-color);
+    flex-shrink: 0;
+}
+
+.button-menu button:hover,
+.button-menu button:focus {
+    background: linear-gradient(to bottom, var(--button-hover-bg), var(--accent-dark));
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+    transform: translateY(-1px);
+}
+
+.button-menu button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 0 2px var(--accent-dark);
+}
+
+/* --- Scrollbar Styling --- */
+/* Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--button-bg), var(--accent-dark));
+    border-radius: 4px;
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-dark) var(--bg-secondary);
+}
+
+/* --- Full Screen Preview Modal Styles --- */
+.preview-modal {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-tertiary));
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(4px);
+}
+
+.preview-modal.visible {
+    display: block;
+    opacity: 1;
+    
+}
+
+
+
+/* Container within the modal */
+.preview-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 6px 24px var(--shadow-color);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, var(--bg-secondary), var(--bg-tertiary));
+    padding: 0 15px;
+    height: var(--header-height);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.preview-title {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--text-color);
+    text-shadow: 0 1px 1px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-title::before {
+    content: "▶";
+    color: var(--accent-light);
+    font-size: 0.9em;
+}
+
+.close-preview {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 7px 12px;
+    border-radius: var(--border-radius);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    background: var(--button-bg);
+}
+
+.close-preview:hover,
+.close-preview:focus {
+    color: var(--text-color);
+    background: linear-gradient(to bottom, var(--button-hover-bg), var(--accent-dark));
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.close-preview:active {
+    transform: translateY(1px);
+}
+
+.close-preview svg {
+    vertical-align: middle;
+    fill: var(--accent-light);
+}
+
+/* Content area for the iframe */
+.preview-content {
+    flex-grow: 1;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#preview-frame {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Disabled Button States --- */
+.toolbar button:disabled,
+.button-menu button:disabled {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+.toolbar button:disabled:hover,
+.button-menu button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* --- Additional Accessibility Focus States --- */
+button:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 2px;
+}
+
+/* --- Mobile Enhancements --- */
+@media (max-width: 600px) {
+    :root {
+        --editor-font-size: 13px;
+    }
+    
+    .toolbar button {
+        min-width: 70px;
+        padding: 6px 10px;
+    }
+    
+    .button-menu button {
+        min-width: 35px;
+        padding: 6px 8px;
+    }
+    
+    .line-numbers {
+        padding: 10px 2px 10px 8px;
+        min-width: 35px;
+    }
+}
+
+/* --- Animation for certain elements --- */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(165, 110, 255, 0.5); }
+    70% { box-shadow: 0 0 0 6px rgba(165, 110, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(165, 110, 255, 0); }
+}
+
+.toolbar button:first-of-type,
+.button-menu button:first-of-type {
+    animation: pulse 2s infinite;
+}
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <header class="toolbar" style="overflow-x: scroll;">
+            <button id="btn-open" title="Open File (Ctrl+O)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>
+                Open
+            </button>
+            <button id="btn-save" title="Save File (Ctrl+S)">
+                 <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"/></svg>
+                Save
+            </button>
+            <button id="btn-preview" title="Preview Code (Ctrl+P)" >
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6.5c3.79 0 7.17 2.13 8.82 5.5-1.65 3.37-5.02 5.5-8.82 5.5S4.83 15.37 3.18 12c1.65-3.37 5.03-5.5 8.82-5.5M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14.5 12 14.5 9.5 13.38 9.5 12s1.12-2.5 2.5-2.5m0-2C10.03 7.5 8.5 8.97 8.5 10.5S10.03 13.5 12 13.5s3.5-1.47 3.5-3-1.47-3-3.5-3z"/></svg>
+                Preview
+             </button>
+             <button id="btn-undo" title="Undo (Ctrl+Z)">
+    <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
+    Undo
+</button>
+<button id="btn-redo" title="Redo (Ctrl+Y)">
+    <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.91 16c1.05-3.19 4.05-5.5 7.59-5.5 1.96 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/></svg>
+    Redo
+</button>
+             <input type="file" id="file-input" accept=".txt,.html,.css,.js,.md,.xml,.json,.svg" style="display: none;">
+        </header>
+
+        <main class="editor-area">
+            <div class="line-numbers"><span>1</span></div>
+             <div class="code-wrapper">
+                 <textarea id="code-input" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off"></textarea>
+                <pre id="highlighting-area" aria-hidden="true"><code class="language-html"></code></pre>
+             </div>
+        </main>
+
+        <footer class="button-menu">
+            <div class="button-menu-scroll">
+                <button data-insert="<div></div>" title="Insert Div tag">div</button>
+                <button data-insert="<span></span>" title="Insert Span tag">span</button>
+                <button data-insert="<p></p>" title="Insert Paragraph tag">p</button>
+                <button data-insert="   " title="Insert HTML Comment"></button>
+                <button data-insert="<a href=''></a>" title="Insert Anchor tag">a</button>
+                <button data-insert="<img src='' alt=''>" title="Insert Image tag">img</button>
+                <button data-insert="<h1></h1>" title="Insert Heading 1">h1</button>
+                <button data-insert="<ul>\n\t<li></li>\n</ul>" title="Unordered List">ul</button>
+                <button data-insert="<ol>\n\t<li></li>\n</ol>" title="Ordered List">ol</button>
+                <button data-insert="<li></li>" title="List Item">li</button>
+                <button data-insert="{}" title="Curly Braces">{}</button>
+                <button data-insert="[]" title="Square Brackets">[]</button>
+                <button data-insert="()" title="Parentheses">()</button>
+                <button data-insert=";" title="Semicolon">;</button>
+                <button data-insert=":" title="Colon">:</button>
+                <button data-insert="''" title="Single Quotes">''</button>
+                <button data-insert='""' title="Double Quotes">""</button>
+                <button data-insert="=" title="Equals">=</button>
+                <button data-insert="=>" title="Arrow Function">=&gt;</button>
+                <button data-insert="\t" title="Insert Tab">Tab</button>
+                <button data-insert="&nbsp;" title="Non-breaking Space">&amp;nbsp;</button>
+                <button data-insert="&lt;" title="Less Than Symbol">&amp;lt;</button>
+                <button data-insert="&gt;" title="Greater Than Symbol">&amp;gt;</button>
+            </div>
+        </footer>
+    </div>
+
+    <div id="preview-modal" class="preview-modal" style="display:;">
+        <div class="preview-container"> <header class="preview-header">
+                <span class="preview-title">Preview</span>
+                <button id="close-preview" class="close-preview" title="Close Preview (Esc)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    Close
+                </button>
+            </header>
+            <div class="preview-content">
+                 <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+                 </div>
+        </div>
+    </div>
+    
+ <script src="prism/dexie.js"></script>
+    <script src="prism/prism2.js"></script>
+      <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // --- DOM Elements ---
+    const codeInput = document.getElementById('code-input');
+    const highlightingArea = document.getElementById('highlighting-area');
+    const highlightingCode = highlightingArea ? highlightingArea.querySelector('code') : null;
+    const lineNumbers = document.querySelector('.line-numbers');
+    const fileInput = document.getElementById('file-input');
+    const btnOpen = document.getElementById('btn-open');
+    const btnSave = document.getElementById('btn-save');
+    const btnPreview = document.getElementById('btn-preview');
+    const buttonMenu = document.querySelector('.button-menu');
+    const previewModal = document.getElementById('preview-modal');
+    const previewFrame = document.getElementById('preview-frame');
+    const closePreviewBtn = document.getElementById('close-preview');
+    const btnUndo = document.getElementById('btn-undo');
+    const btnRedo = document.getElementById('btn-redo');
+
+    // --- State ---
+    let currentLanguage = 'html'; // Default language
+    let currentFileName = 'untitled.html'; // Default filename
+    let currentFileId = null; // To store the ID from IndexedDB if loaded
+
+    // --- History State ---
+    let undoStack = [];
+    let redoStack = [];
+    let lastRecordedState = ''; // Initialize empty, will be set after load/init
+    let isUndoingOrRedoing = false;
+    const HISTORY_MAX_SIZE = 100;
+
+    // --- Database Setup (using Dexie.js) ---
+    // In BOTH editor.js and files.js
+const db = new Dexie("CodeEditorDB");
+db.version(1).stores({
+    files: '++id, name, &uniqueNameLower, content, language, *lastModified, *isFavorite'
+    // Ensure '*' marks lastModified and isFavorite as indexes
+});
+
+    // --- Initial Loading Logic ---
+    function initializeEditor() {
+        const fileIdToLoad = localStorage.getItem('fileToLoadId');
+        const codeFromTopic = localStorage.getItem('codeToEdit');
+
+        // Priority 1: Load from File Manager Request
+        if (fileIdToLoad !== null && codeInput && db) {
+            const fileId = parseInt(fileIdToLoad, 10);
+            console.log("Found file ID in localStorage, loading from IndexedDB:", fileId);
+            localStorage.removeItem('fileToLoadId'); // Clear the ID
+
+            db.files.get(fileId).then(file => {
+                if (file) {
+                    console.log("Loaded file data:", file);
+                    codeInput.value = file.content;
+                    currentFileName = file.name;
+                    currentFileId = file.id; // Store the loaded file ID
+                    updateLanguageAndFilename(file.name); // Update language based on name
+                    lastRecordedState = codeInput.value; // Set history state
+                    undoStack = []; redoStack = []; // Clear history for loaded file
+                    handleInput();
+                    syncScroll();
+                    updateUndoRedoButtons();
+                    codeInput.focus();
+                } else {
+                    handleLoadError(`File with ID ${fileId} not found in IndexedDB.`);
+                }
+            }).catch(error => {
+                handleLoadError(`Error fetching file from IndexedDB: ${error}`);
+            });
+
+        // Priority 2: Load from "Try It Yourself" Request
+        } else if (codeFromTopic !== null && codeInput) {
+            console.log("Found 'Try it' code in localStorage, loading into editor.");
+            codeInput.value = codeFromTopic;
+            localStorage.removeItem('codeToEdit');
+            currentFileName = 'untitled.html'; // Reset filename
+            currentFileId = null; // Ensure no ID is associated
+            updateLanguageAndFilename(currentFileName);
+            lastRecordedState = codeInput.value;
+            undoStack = []; redoStack = [];
+            // Use delay for updates after setting value programmatically
+            setTimeout(() => {
+                console.log("Running delayed updates after localStorage load.");
+                handleInput();
+                updateUndoRedoButtons();
+                codeInput.focus();
+            }, 100);
+        }
+        // Default: Editor is empty or has existing content (not from storage)
+        else {
+            if (codeInput) {
+                lastRecordedState = codeInput.value; // Capture whatever is initially in textarea
+            } else {
+                 lastRecordedState = '';
+            }
+            updateUndoRedoButtons(); // Set initial button state
+            // Initial render only if editor has content and wasn't loaded above
+             if (codeInput && codeInput.value) {
+                 handleInput();
+             }
+            syncScroll();
+        }
+    }
+
+    function handleLoadError(message) {
+        console.error(message);
+        alert("Error loading file content.");
+        // Reset to empty state
+        if(codeInput) codeInput.value = '';
+        currentFileName = 'untitled.html';
+        currentFileId = null;
+        updateLanguageAndFilename(currentFileName);
+        lastRecordedState = '';
+        undoStack = []; redoStack = [];
+        handleInput();
+        syncScroll();
+        updateUndoRedoButtons();
+    }
+
+
+    // --- Core Editor Functions ---
+    function updateHighlightingContent() {
+        if (!highlightingCode || !codeInput) return;
+        const code = codeInput.value;
+        highlightingCode.textContent = code + (code.endsWith('\n') ? '' : '\n');
+        highlightingCode.className = `language-${currentLanguage}`;
+        try {
+            Prism.highlightElement(highlightingCode);
+        } catch (e) {
+            console.warn("Prism highlighting error:", e); // Use warn for non-critical errors
+            // Keep text content even if highlighting fails
+            highlightingCode.textContent = code + (code.endsWith('\n') ? '' : '\n');
+        }
+    }
+
+    function updateLineNumbers() {
+        setTimeout(() => { // Use setTimeout to defer execution slightly
+            if (!codeInput || !lineNumbers) return;
+            try {
+                const lines = codeInput.value.split('\n');
+                const lineCount = lines.length || 1; // Ensure at least 1 line number
+                // Avoid unnecessary DOM manipulation if count is same
+                if (lineNumbers.childElementCount !== lineCount) {
+                     const numbersHtml = Array.from({ length: lineCount }, (_, i) => `<span>${i + 1}</span>`).join('');
+                     lineNumbers.innerHTML = numbersHtml;
+                }
+                // Sync scroll *after* potential DOM update
+                 lineNumbers.scrollTop = codeInput.scrollTop;
+             } catch(e) {
+                 console.error("Error updating line numbers:", e);
+             }
+        }, 0);
+    }
+
+    function syncScroll() {
+        if (!codeInput || !highlightingArea || !lineNumbers) return;
+        try {
+            // Use requestAnimationFrame for smoother scroll syncing
+            requestAnimationFrame(() => {
+                const top = codeInput.scrollTop;
+                const left = codeInput.scrollLeft;
+                highlightingArea.scrollTop = top;
+                highlightingArea.scrollLeft = left;
+                lineNumbers.scrollTop = top;
+            });
+        } catch(e) {
+            console.error("Error syncing scroll:", e);
+        }
+    }
+
+    // --- Debounce Utility ---
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // --- History Management Functions ---
+    function saveHistoryState() {
+        if (isUndoingOrRedoing || !codeInput) return;
+        const currentState = codeInput.value;
+        if (currentState !== lastRecordedState) {
+            undoStack.push(lastRecordedState);
+            if (undoStack.length > HISTORY_MAX_SIZE) {
+                undoStack.shift();
+            }
+            redoStack = [];
+            lastRecordedState = currentState;
+            updateUndoRedoButtons();
+        }
+    }
+    const debouncedSaveHistory = debounce(saveHistoryState, 500);
+
+    function applyHistoryState(state) {
+        if (!codeInput) return;
+        isUndoingOrRedoing = true;
+        codeInput.value = state;
+        lastRecordedState = state;
+        handleInput(); // Update display
+        // Restore cursor position is complex, so we just focus
+        codeInput.focus();
+        // Use setTimeout to clear the flag after updates
+        setTimeout(() => { isUndoingOrRedoing = false; }, 0);
+    }
+
+    function undo() {
+        if (undoStack.length > 0) {
+            redoStack.push(lastRecordedState);
+            const previousState = undoStack.pop();
+            applyHistoryState(previousState);
+            updateUndoRedoButtons();
+        }
+    }
+
+    function redo() {
+        if (redoStack.length > 0) {
+            undoStack.push(lastRecordedState);
+            const nextState = redoStack.pop();
+            applyHistoryState(nextState);
+            updateUndoRedoButtons();
+        }
+    }
+
+    function updateUndoRedoButtons() {
+         if(btnUndo) btnUndo.disabled = undoStack.length === 0;
+         if(btnRedo) btnRedo.disabled = redoStack.length === 0;
+    }
+
+    // --- Combined Update Function ---
+    // Directly update on input for responsiveness, debounce history save separately
+    function handleInput() {
+        updateHighlightingContent();
+        updateLineNumbers();
+        syncScroll();
+        // History save is handled by the input listener calling debouncedSaveHistory
+    }
+
+    // --- Event Listeners ---
+    if (codeInput) {
+        codeInput.addEventListener('input', () => {
+             if (!isUndoingOrRedoing) {
+                 handleInput(); // Update display immediately
+                 debouncedSaveHistory(); // Schedule history save
+             }
+        });
+
+        codeInput.addEventListener('scroll', syncScroll);
+
+        codeInput.addEventListener('keydown', (e) => {
+            // --- Auto Indent on Enter ---
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                 if (!isUndoingOrRedoing) saveHistoryState(); // Save before modification
+                const currentPos = codeInput.selectionStart;
+                const currentLineStart = codeInput.value.lastIndexOf('\n', currentPos - 1) + 1;
+                const currentLineText = codeInput.value.substring(currentLineStart, currentPos);
+                const currentIndentMatch = currentLineText.match(/^\s*/);
+                const currentIndent = currentIndentMatch ? currentIndentMatch[0] : '';
+                let indentToAdd = currentIndent;
+                const trimmedLine = currentLineText.trim();
+                if (trimmedLine.endsWith('{') || trimmedLine.endsWith('(') || trimmedLine.endsWith('[')) {
+                    indentToAdd += '\t';
+                }
+                const textToInsert = '\n' + indentToAdd;
+                insertTextAtCursor(textToInsert, true); // Skip history save inside insert
+
+                const nextCharPos = codeInput.selectionStart;
+                const textAfterCursor = codeInput.value.substring(nextCharPos);
+                const nextNonWhitespaceCharMatch = textAfterCursor.match(/^\s*(\S)/);
+                const nextChar = nextNonWhitespaceCharMatch ? nextNonWhitespaceCharMatch[1] : null;
+                const lastChar = trimmedLine.slice(-1);
+                if ((lastChar === '{' && nextChar === '}') || (lastChar === '[' && nextChar === ']') || (lastChar === '(' && nextChar === ')')) {
+                    insertTextAtCursor('\n' + currentIndent, true);
+                    codeInput.selectionStart = codeInput.selectionEnd = nextCharPos;
+                }
+                handleInput();
+                if (!isUndoingOrRedoing) debouncedSaveHistory(); // Schedule save after action
+                return;
+            }
+
+            // --- Tab Key ---
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                 if (!isUndoingOrRedoing) saveHistoryState();
+                insertTextAtCursor('\t', true);
+                handleInput();
+                 if (!isUndoingOrRedoing) debouncedSaveHistory();
+                return;
+            }
+
+            // --- Shortcuts ---
+            if (e.ctrlKey || e.metaKey) {
+                let handled = true;
+                switch (e.key.toLowerCase()) {
+                    case 'z': undo(); break;
+                    case 'y': redo(); break;
+                    case 's': if(btnSave) btnSave.click(); break;
+                    case 'o': if(btnOpen) btnOpen.click(); break;
+                    case 'p': if(btnPreview) btnPreview.click(); break;
+                    default: handled = false;
+                }
+                if (handled) { e.preventDefault(); return; }
+            }
+
+             // --- Auto-Pairing ---
+            // Use setTimeout to allow character input before pairing
+            setTimeout(() => {
+                 // Check if the key press actually inserted the character
+                 // (more robust than just checking e.key)
+                 const charPos = codeInput.selectionStart;
+                 const charJustTyped = codeInput.value.substring(charPos - 1, charPos);
+
+                 if (charJustTyped === '(') { insertPairedText(e, '(', ')'); }
+                 else if (charJustTyped === '{') { insertPairedText(e, '{', '}'); }
+                 else if (charJustTyped === '[') { insertPairedText(e, '[', ']'); }
+                 else if (charJustTyped === '"') { insertPairedText(e, '"', '"'); }
+                 else if (charJustTyped === "'") { insertPairedText(e, "'", "'"); }
+                 // Only save history if pairing actually happened
+                 // Note: This part is tricky with timeout, relies on insertPairedText calling save
+             }, 0);
+
+             // Schedule history save for other key presses (letters, delete, etc.)
+             // Needs to happen *after* potential auto-pairing logic runs
+             if (!isUndoingOrRedoing && !['Control', 'Shift', 'Alt', 'Meta', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Tab', 'Escape'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+                 // Debounce save for general typing
+                debouncedSaveHistory();
+             }
+
+        }); // End Keydown Listener
+
+    } else {
+        console.error("Code input element (#code-input) not found!");
+    }
+
+    // Global keydown listener for Escape key to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && previewModal && previewModal.classList.contains('visible')) {
+             if(closePreviewBtn) closePreviewBtn.click();
+        }
+    });
+
+    // --- Toolbar Actions ---
+
+    // Open Button (Triggers hidden file input)
+    if (btnOpen && fileInput) {
+        btnOpen.addEventListener('click', () => { fileInput.click(); });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file || !codeInput) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                undoStack = []; redoStack = []; isUndoingOrRedoing = false; // Reset history
+                codeInput.value = e.target.result;
+                currentFileName = file.name;
+                currentFileId = null; // Opened from file system, not DB
+                delete codeInput.dataset.dbId; // Clear any potential previous DB ID
+
+                updateLanguageAndFilename(file.name);
+                lastRecordedState = codeInput.value;
+                handleInput();
+                codeInput.scrollTop = 0; codeInput.scrollLeft = 0;
+                syncScroll();
+                updateUndoRedoButtons();
+            };
+            reader.onerror = (e) => { console.error("File reading error:", e); alert("Error reading file."); };
+            reader.readAsText(file);
+            event.target.value = null; // Allow opening same file again
+        });
+    }
+
+    // Save Button (Save to IndexedDB + Attempt Download)
+    if (btnSave && db) {
+        btnSave.addEventListener('click', async () => { // Make listener async
+            console.log("Save button clicked."); // Log 1
+            if (!codeInput) { console.error("Save failed: Editor or DB not ready."); alert("Error: Cannot save file."); return; }
+
+            const codeToSave = codeInput.value;
+            // Use currentFileId state variable instead of dataset
+            const fileId = currentFileId;
+            let nameToSave = currentFileName;
+
+            // If it's considered a new file (no ID or default name), prompt for a name
+            if (!fileId && nameToSave === 'untitled.html') {
+                 const newName = prompt("Enter file name:", "new_file.js");
+                 if (!newName || !newName.trim()) { alert("Save cancelled: File name is required."); return; }
+                 nameToSave = newName.trim();
+                 // Update global filename and language *before* saving
+                 updateLanguageAndFilename(nameToSave); // This sets currentFileName and currentLanguage
+            } else {
+                 // Ensure currentFileName reflects the name to be saved even if loaded
+                 nameToSave = currentFileName;
+            }
+
+            // Basic filename sanitization
+            let safeFileName = nameToSave.replace(/[/\\?%*:|"<>]/g, '-');
+            if (!safeFileName.trim()) safeFileName = "untitled.txt";
+
+            const fileData = {
+                name: safeFileName,
+                uniqueNameLower: safeFileName.toLowerCase(),
+                content: codeToSave,
+                language: currentLanguage, // Use current state variable
+                lastModified: Date.now(),
+                // isFavorite: fileId ? (await db.files.get(fileId))?.isFavorite || 0 : 0 // Preserve favorite status requires await
+                 isFavorite: 0 // Default to not favorite on save, user uses file manager to favorite
+            };
+
+            // Preserve favorite status if updating
+            if (fileId) {
+                 try {
+                      const existingFile = await db.files.get(fileId);
+                      if (existingFile) fileData.isFavorite = existingFile.isFavorite;
+                 } catch(e) { console.warn("Could not get existing favorite status", e)}
+            }
+
+
+            try {
+                let savedFileId;
+                if (fileId) { // Update existing file
+                    console.log("Updating file in IndexedDB, ID:", fileId);
+                    await db.files.update(fileId, {
+                         // Only update fields that change on save
+                         content: fileData.content,
+                         lastModified: fileData.lastModified,
+                         // Update name/lang only if they were actually changed (e.g., via rename)
+                         // For now, assume rename is separate, only update content/modified time
+                     });
+                     savedFileId = fileId;
+                     console.log("File updated successfully.");
+                } else { // Add new file
+                     console.log("Adding new file to IndexedDB:", fileData.name);
+                      // Check for existing name *before* adding
+                     const existing = await db.files.where('uniqueNameLower').equals(fileData.uniqueNameLower).first();
+                     if (existing) {
+                         alert(`Error: A file named "${fileData.name}" already exists in browser storage.`);
+                         return; // Stop save
+                     }
+                    savedFileId = await db.files.add(fileData);
+                    currentFileId = savedFileId; // Store the new ID for future saves
+                    currentFileName = fileData.name; // Ensure global state matches saved name
+                    console.log("File added successfully with ID:", savedFileId);
+                }
+
+                // Update history state after successful save
+                lastRecordedState = codeToSave;
+                 undoStack = []; // Clear history after save
+                 redoStack = [];
+                 updateUndoRedoButtons();
+
+                // Optional: Show success feedback without alert
+                // showToast(`File "${fileData.name}" saved.`);
+
+            } catch (error) {
+                console.error("Error saving file to IndexedDB:", error);
+                if (error.name === 'ConstraintError') { alert(`Error: A file named "${fileData.name}" already exists.`); }
+                else { alert("Failed to save file to browser storage."); }
+                return; // Stop if DB save failed
+            }
+
+            // --- Attempt Download (Keep existing logging) ---
+            console.log("Attempting file download as backup..."); // Log
+            const blob = new Blob([codeToSave], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = safeFileName; // Use sanitized name
+            console.log("Using filename for download:", safeFileName); // Log
+            console.log("Attempting to trigger download link click..."); // Log
+            try {
+                 link.click();
+                 console.log("Link clicked programmatically."); // Log
+                 setTimeout(() => { URL.revokeObjectURL(link.href); console.log("Object URL revoked."); }, 100); // Log
+            } catch(e) {
+                console.error("Error triggering download link click:", e); // Log (Error)
+                 // Don't alert if DB save succeeded, download is just optional backup
+                 URL.revokeObjectURL(link.href);
+            }
+             console.log("Save function finished."); // Log
+        });
+    } // End Save Button Logic
+
+
+    // Preview Button
+    if (btnPreview && previewModal && previewFrame) {
+        btnPreview.addEventListener('click', () => {
+            const code = codeInput ? codeInput.value : '';
+            try {
+                previewFrame.srcdoc = code;
+                previewModal.classList.add('visible');
+            } catch (e) { console.error("Preview Error:", e); alert("Could not generate preview."); previewModal.classList.remove('visible'); }
+        });
+    }
+
+    // Close Preview Button
+    if (closePreviewBtn && previewModal && previewFrame) {
+        closePreviewBtn.addEventListener('click', () => {
+            previewModal.classList.remove('visible');
+            setTimeout(() => { try { previewFrame.srcdoc = ''; } catch(iframeError) { console.warn("Could not clear preview frame srcdoc:", iframeError); } }, 200);
+        });
+    }
+
+     // Undo/Redo Button Listeners
+     if(btnUndo) btnUndo.addEventListener('click', undo);
+     if(btnRedo) btnRedo.addEventListener('click', redo);
+
+
+    // --- Button Menu Actions ---
+    if (buttonMenu) {
+        buttonMenu.addEventListener('click', (event) => {
+            const button = event.target.closest('button');
+            if (button && button.dataset.insert) {
+                if (!isUndoingOrRedoing) saveHistoryState(); // Save before insert
+                insertTextAtCursor(button.dataset.insert, true); // Skip history save inside insert
+                if (!isUndoingOrRedoing) debouncedSaveHistory(); // Debounce save after insert
+            }
+        });
+    }
+
+    // --- Helper Functions ---
+    function insertTextAtCursor(text, skipHistorySave = false) {
+        if(!codeInput) return;
+        // History saving is now handled by caller or input event listener
+        codeInput.focus();
+        const start = codeInput.selectionStart;
+        const end = codeInput.selectionEnd;
+        const currentText = codeInput.value;
+        const before = currentText.substring(0, start);
+        const after = currentText.substring(end);
+        const textToInsert = text.replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+        codeInput.value = before + textToInsert + after;
+        codeInput.selectionStart = codeInput.selectionEnd = start + textToInsert.length;
+        handleInput(); // Trigger updates *after* modification
+    }
+
+    // Helper for auto-pairing characters (triggered from keydown)
+    function insertPairedText(event, charOpen, charClose) {
+        if(!codeInput || isUndoingOrRedoing) return;
+        // No need for preventDefault here as it's called after char insertion
+        // History saving is handled by keydown listener scheduling it
+        const start = codeInput.selectionStart; // Cursor is *after* the typed char
+        const end = codeInput.selectionEnd;
+        const currentText = codeInput.value;
+        const selectedText = currentText.substring(start, end); // Usually empty here
+
+         // Insert only the closing char if selection is empty
+        if (start === end) {
+            const textToInsert = charClose;
+             const before = currentText.substring(0, start);
+             const after = currentText.substring(end);
+             codeInput.value = before + textToInsert + after;
+            // Place cursor *before* the closing char
+            codeInput.selectionStart = codeInput.selectionEnd = start;
+        } else {
+             // If text is selected, wrap it
+             const textToInsert = charOpen + selectedText + charClose;
+             const before = currentText.substring(0, start - charOpen.length); // Adjust start due to already typed charOpen
+             const after = currentText.substring(end);
+             codeInput.value = before + textToInsert + after;
+            codeInput.selectionStart = codeInput.selectionEnd = start + selectedText.length + charClose.length;
+        }
+        handleInput();
+    }
+
+    function updateLanguageAndFilename(filename) {
+        const extension = filename.split('.').pop().toLowerCase();
+        const langMap = { js: 'javascript', css: 'css', html: 'html', htm: 'html', md: 'markdown', xml: 'xml', svg: 'xml', json: 'json', py: 'python', java: 'java', kt: 'kotlin', ts: 'typescript', sh: 'bash', php: 'php', rb: 'ruby', go: 'go', cpp: 'cpp', c: 'c' };
+        currentLanguage = langMap[extension] || 'clike'; // Default language if extension unknown
+        currentFileName = filename; // Update global state
+        console.log(`Language set to: ${currentLanguage} for file: ${currentFileName}`);
+        if (highlightingCode) { highlightingCode.className = `language-${currentLanguage}`; }
+        // Maybe update page title or a filename display element here?
+    }
+
+    // --- Initial Setup ---
+    initializeEditor(); // Run the appropriate loading logic
+
+    console.log("Editor Initialized.");
+}); // End DOMContentLoaded
+    </script>
+</body>
+</html>
