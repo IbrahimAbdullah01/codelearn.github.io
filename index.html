@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Website - Home</title>
+    <!-- Google Fonts - Inter for a clean, modern typeface -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc; /* Light Slate 50 */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Smooth scroll for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Container for centralizing content */
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem; /* 24px */
+            padding-right: 1.5rem; /* 24px */
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(to right, #2563eb, #7c3aed); /* Blue 600 to Purple 700 */
+            color: white;
+            padding: 1.5rem; /* 24px */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            border-bottom-left-radius: 0.75rem; /* rounded-b-xl */
+            border-bottom-right-radius: 0.75rem; /* rounded-b-xl */
+        }
+
+        header .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header .header-content {
+                flex-direction: row;
+            }
+        }
+
+        header h1 {
+            font-size: 2.25rem; /* 4xl */
+            font-weight: 700; /* bold */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header h1 {
+                margin-bottom: 0; /* md:mb-0 */
+            }
+        }
+
+        header nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 1.5rem; /* space-x-6 */
+            font-size: 1.125rem; /* lg */
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover {
+            color: #bfdbfe; /* blue-200 */
+        }
+
+        /* Main Content Section */
+        main {
+            flex-grow: 1;
+            padding: 1.5rem; /* p-6 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            main {
+                padding: 2.5rem; /* md:p-10 */
+            }
+        }
+
+        main .intro-text {
+            text-align: center;
+            margin-bottom: 3rem; /* mb-12 */
+        }
+
+        main .intro-text p {
+            font-size: 1.25rem; /* xl */
+            color: #4b5563; /* gray-700 */
+            line-height: 1.625; /* leading-relaxed */
+            max-width: 48rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* List of Sample Pages Section */
+        .pages-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 column by default */
+            gap: 2rem; /* gap-8 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .pages-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .pages-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            }
+        }
+
+        .page-card {
+            display: block; /* Ensures the whole card is clickable */
+            background-color: white;
+            padding: 1.5rem; /* p-6 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            transition: all 0.3s ease-in-out;
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .page-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05); /* hover:shadow-xl */
+            transform: translateY(-0.25rem); /* hover:-translate-y-1 */
+        }
+
+        .page-card .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .page-card .icon-container {
+            border-radius: 9999px; /* rounded-full */
+            padding: 0.75rem; /* p-3 */
+            margin-right: 1rem; /* mr-4 */
+        }
+
+        /* Specific icon background colors */
+        .page-card:nth-child(1) .icon-container { background-color: #dbeafe; color: #2563eb; } /* blue-100, blue-600 */
+        .page-card:nth-child(2) .icon-container { background-color: #dcfce7; color: #16a34a; } /* green-100, green-600 */
+        .page-card:nth-child(3) .icon-container { background-color: #fef9c3; color: #eab308; } /* yellow-100, yellow-600 */
+        .page-card:nth-child(4) .icon-container { background-color: #fee2e2; color: #dc2626; } /* red-100, red-600 */
+        .page-card:nth-child(5) .icon-container { background-color: #ede9fe; color: #9333ea; } /* purple-100, purple-600 */
+
+        .page-card h2 {
+            font-size: 1.5rem; /* 2xl */
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* gray-800 */
+        }
+
+        .page-card p {
+            color: #4b5563; /* gray-600 */
+        }
+
+        /* SVG icon sizing */
+        .page-card svg {
+            width: 1.5rem; /* w-6 */
+            height: 1.5rem; /* h-6 */
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #1f2937; /* gray-800 */
+            color: white;
+            padding: 1.5rem; /* p-6 */
+            margin-top: 3rem; /* mt-12 */
+            border-top-left-radius: 0.75rem; /* rounded-t-xl */
+            border-top-right-radius: 0.75rem; /* rounded-t-xl */
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06); /* shadow-inner */
+        }
+
+        footer p {
+            text-align: center;
+            font-size: 0.875rem; /* text-sm */
+        }
+
+        footer .heart-icon {
+            color: #ef4444; /* red-500 */
+        }
+
+        footer .mt-2 {
+            margin-top: 0.5rem; /* mt-2 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <h1>Welcome to My Site!</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#pages">Pages</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container">
+        <section class="intro-text">
+            <p>
+                Explore the various sections of my website. Each link below leads to a different sample page, showcasing diverse content and design possibilities.
+            </p>
+        </section>
+
+        <!-- List of Sample Pages Section -->
+        <section id="pages" class="pages-grid">
+            <!-- Sample Page 1 -->
+            <a href="top6.html" class="page-card">
+                <div class="card-header">
+                    <h2>Topic 1</h2>
+                </div>
+                <p>top6: learn style</p>
+            </a>
+
+            <!-- Sample Page 1 -->
+            <a href="top7b.html" class="page-card">
+                <div class="card-header">
+                    <h2>Topic 1</h2>
+                </div>
+                <p>top7b: learn style</p>
+            </a>
+
+            <!-- Sample Page 1 -->
+            <a href="top6b.html" class="page-card">
+                <div class="card-header">
+                    <h2>Topic 1</h2>
+                </div>
+                <p>top6: learn style</p>
+            </a>
+            
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 My Awesome Website. All rights reserved.</p>
+            <p class="mt-2">Designed with <span class="heart-icon">&hearts;</span> using Pure CSS</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Styles | CodeMaster ✨</title>
+    <link rel="stylesheet" href="prism/prism.css">
+    <link rel="stylesheet" href="note.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+   <link rel="stylesheet" href="prism/faw/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  
+
+</head>
+<body > <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <button class="icon-button back-button" onclick="goBack()" aria-label="Go Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="page-title">HTML Styles ✨</h1>
+            </div>
+            <div class="header-actions">
+                 <button class="icon-button" id="theme-toggle-button" aria-label="Toggle Theme">
+                     <i class="fas fa-sun" id="theme-icon"></i> </button>
+                 <button class="icon-button" id="bookmark-button" aria-label="Bookmark this page">
+                    <i class="far fa-bookmark" id="bookmark-icon"></i> </button>
+                 <button class="icon-button" id="share-button" aria-label="Share this page">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content" id="main-content-area">
+            <div class="topic-header">
+                <h2 class="topic-title">HTML Styles</h2>
+                <p class="topic-description">Let's dive into the fascinating world of HTML styling! Learn how to make your web pages beautiful using inline styles and the style tag.</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="topic-progress-bar"></div>
+                </div>
+                <p class="progress-text" id="topic-progress-text">0% Complete</p>
+            </div>
+
+            <div class="toc" id="table-of-contents">
+                <h3 class="toc-title"><i class="fas fa-list-ul"></i>In this lesson</h3>
+                <ul class="toc-list">
+                    <li class="toc-item"><a href="#introduction" class="toc-link">🎨 Introduction</a></li>
+                    <li class="toc-item"><a href="#style-attribute" class="toc-link">✨ The style Attribute</a></li>
+                    <li class="toc-item"><a href="#style-tag" class="toc-link">📝 The &lt;style&gt; Tag</a></li>
+                    <li class="toc-item"><a href="#cascading" class="toc-link">🌊 Understanding Cascading</a></li>
+                    <li class="toc-item"><a href="#common-properties" class="toc-link">🔧 Common Style Properties</a></li>
+                    <li class="toc-item"><a href="#mini-project" class="toc-link">🚀 Mini Project</a></li>
+                    <li class="toc-item"><a href="#conclusion" class="toc-link">🏁 Conclusion</a></li>
+                </ul>
+            </div>
+
+            <div class="content-section" id="introduction">
+                 <h3 class="section-title">🎨 Introduction</h3>
+                 <div class="section-content">
+                     <p>Let's dive into the fascinating world of HTML styling, keeping it fun and easy to understand, even if you're just starting your journey into web development! Remember, we're focusing on how HTML itself handles styles, so we won't go too deep into the vast ocean of CSS just yet. Think of this as learning how to put a little personal touch on your web pages right within the HTML document.</p>
+                     
+                     <div class="info-card info-box">
+                         <div class="info-card-icon"><i class="fas fa-palette"></i></div>
+                         <div class="info-card-content">
+                              <h4>What Are HTML Styles?</h4>
+                              <p>HTML styles allow you to control the appearance of your web page elements directly within the HTML document. Think of it as decorating your room - you can paint specific walls or set general rules for the entire space!</p>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="style-attribute">
+                 <h3 class="section-title">✨ The HTML style Attribute: Your First Step to Making Things Pretty!</h3>
+                 <div class="section-content">
+                     <p>Imagine you're decorating a room. You have a wall, and you want to paint it blue. Instead of calling in a professional painter (which would be like using a separate CSS file), you decide to just grab a can of blue paint and paint that specific wall yourself. That's essentially what the HTML style attribute does.</p>
+                     
+                     <p>Every HTML element – like a paragraph (<code>&lt;p&gt;</code>), a heading (<code>&lt;h1&gt;</code>), or an image (<code>&lt;img&gt;</code>) – can have a style attribute. This attribute allows you to apply inline styles directly to that single element.</p>
+                     
+                     <h4>Syntax (How to Write It):</h4>
+                     <p>The syntax for the style attribute is super straightforward:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Basic Style Attribute Syntax</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="style-syntax" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="style-syntax">&lt;element style="property: value; property2: value2;"&gt;Content&lt;/element&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <p>Let's break this down:</p>
+                     <ul>
+                         <li><strong>&lt;element&gt;:</strong> This is your HTML tag, like <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;span&gt;</code>, etc.</li>
+                         <li><strong>style=" ":</strong> This is the attribute itself. Notice it's always followed by an equals sign (=) and then quotation marks ("). All your styling magic happens inside these quotation marks.</li>
+                         <li><strong>property: value;:</strong> This is the core of the style.
+                             <ul>
+                                 <li><strong>Property:</strong> Think of this as what you want to change. Do you want to change the color? The size? The background? Examples include color, font-size, background-color, text-align, etc.</li>
+                                 <li><strong>Value:</strong> This is how you want to change it. If the property is color, the value could be blue or #FF0000 (a specific red color code). If the property is font-size, the value could be 16px (16 pixels) or 2em (twice the normal text size).</li>
+                             </ul>
+                         </li>
+                         <li><strong>Semicolon (;):</strong> This is crucial! After each property: value pair, you must put a semicolon. This tells the browser that you're done with that specific style declaration and are ready for the next one (if there is one). It's like putting a period at the end of a sentence.</li>
+                     </ul>
+                     
+                     <h4>Simple Illustration: Making a Paragraph Red and Centered</h4>
+                     <p>Let's say you have a paragraph of text:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Before and After Styling</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="paragraph-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="paragraph-example">&lt;!-- Normal paragraph --&gt;
+&lt;p&gt;This is a normal paragraph.&lt;/p&gt;
+
+&lt;!-- Styled paragraph --&gt;
+&lt;p style="color: red; text-align: center;"&gt;This paragraph is now red and centered!&lt;/p&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card tip-box">
+                         <div class="info-card-icon"><i class="fas fa-lightbulb"></i></div>
+                         <div class="info-card-content">
+                              <h4>When to Use Inline Styles</h4>
+                              <p>Inline styles are great for:</p>
+                              <ul>
+                                  <li><strong>Quick tests:</strong> You want to see how a small change looks right away.</li>
+                                  <li><strong>One-off changes:</strong> You have a single element that needs a unique style and no other element will ever share that exact style.</li>
+                                  <li><strong>Dynamic content:</strong> Sometimes, a program might generate HTML and insert a specific style based on user input or data.</li>
+                              </ul>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card warning-box">
+                         <div class="info-card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                         <div class="info-card-content">
+                              <h4>The Downside of Inline Styles</h4>
+                              <p>While easy to use, inline styles can quickly make your HTML messy and hard to manage if you use them everywhere. Imagine painting every single wall in your house a different color by hand, instead of having a color scheme for each room! This leads us to our next concept...</p>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('paragraph-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="style-tag">
+                 <h3 class="section-title">📝 The HTML &lt;style&gt; Tag: Styling within the Document</h3>
+                 <div class="section-content">
+                     <p>Now, imagine you're still decorating your room, but this time, you decide you want all the paragraphs in this room to be blue, and all the headings to be green. Instead of painting each one individually, you write down a general instruction: "All paragraphs should be blue, and all headings should be green." This instruction applies to all similar elements within that room.</p>
+                     
+                     <p>In HTML, this "general instruction" for styling within the same HTML document is achieved using the <code>&lt;style&gt;</code> tag.</p>
+                     
+                     <h4>Where Does it Go?</h4>
+                     <p>The <code>&lt;style&gt;</code> tag is typically placed inside the <code>&lt;head&gt;</code> section of your HTML document. The <code>&lt;head&gt;</code> section is like the "control panel" of your web page – it contains information about the page, but nothing that's actually displayed on the page itself (except for the title in the browser tab).</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Style Tag Example</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="style-tag-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="style-tag-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Styled Page&lt;/title&gt;
+    &lt;style&gt;
+        /* CSS rules go here */
+        p {
+            color: blue;
+        }
+
+        h1 {
+            color: green;
+            text-decoration: underline;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Page!&lt;/h1&gt;
+    &lt;p&gt;This is my first blue paragraph.&lt;/p&gt;
+    &lt;p&gt;And this is my second blue paragraph.&lt;/p&gt;
+    &lt;h2&gt;Another Heading&lt;/h2&gt;
+    &lt;p style="color: purple;"&gt;This paragraph is purple because of an inline style!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <h4>Let's Break Down What's Inside the &lt;style&gt; Tag:</h4>
+                     <p>Inside the <code>&lt;style&gt;</code> tag, you write what's called CSS (Cascading Style Sheets) rules. Don't worry too much about the "Cascading" part for now, just understand that it's the language used to describe how HTML elements should look.</p>
+                     
+                     <ul>
+                         <li><strong>Selector:</strong> This tells the browser which HTML elements you want to style.
+                             <ul>
+                                 <li>In our example, <code>p</code> is a selector. It means "apply these styles to all paragraph elements."</li>
+                                 <li><code>h1</code> is another selector, meaning "apply these styles to all level 1 heading elements."</li>
+                                 <li>There are many types of selectors, but for now, just knowing how to select elements by their tag name (like p, h1, body, img) is enough!</li>
+                             </ul>
+                         </li>
+                         <li><strong>Declaration Block ({ ... }):</strong> After the selector, you have a set of curly braces {}. Everything inside these braces is a set of style declarations that apply to the selected element(s).</li>
+                         <li><strong>Property: Value; Pairs:</strong> Just like with inline styles, you use property: value; pairs within the declaration block.</li>
+                     </ul>
+                     
+                     <div class="info-card interactive-box">
+                         <div class="info-card-icon"><i class="fas fa-code"></i></div>
+                         <div class="info-card-content">
+                              <h4>Simple Illustration</h4>
+                              <p>Using the example above:</p>
+                              <ul>
+                                  <li><code>p { color: blue; }</code> will make every paragraph (<code>&lt;p&gt;</code>) element on your page have blue text, unless overridden by a more specific style.</li>
+                                  <li><code>h1 { color: green; text-decoration: underline; }</code> will make every level 1 heading (<code>&lt;h1&gt;</code>) element green and underlined.</li>
+                              </ul>
+                         </div>
+                     </div>
+                     
+                     <h4>When to Use the &lt;style&gt; Tag (Internal/Embedded Styles):</h4>
+                     <ul>
+                         <li><strong>Page-specific styles:</strong> When you have styles that are unique to a single HTML page and aren't likely to be reused on other pages.</li>
+                         <li><strong>Organized styling for a single document:</strong> It keeps your styles separate from your HTML content, making your HTML cleaner than using inline styles everywhere.</li>
+                     </ul>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('style-tag-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="cascading">
+                 <h3 class="section-title">🌊 The Relationship Between Inline Styles and the &lt;style&gt; Tag</h3>
+                 <div class="section-content">
+                     <p>Remember how we talked about the style attribute (inline styles) and the <code>&lt;style&gt;</code> tag? What happens if you have conflicting styles? This is where the "Cascading" part of CSS briefly comes into play, but we'll keep it super simple.</p>
+                     
+                     <p>Think of it like this, going back to our room analogy:</p>
+                     <ul>
+                         <li><strong>Inline Style (The style attribute):</strong> You paint a specific wall blue. This is the most direct instruction.</li>
+                         <li><strong>Internal Style (The &lt;style&gt; tag in the &lt;head&gt;):</strong> You write a general instruction for the whole room: "All walls should be green."</li>
+                     </ul>
+                     
+                     <p>If you painted a specific wall blue (inline style), and then wrote a general instruction for all walls to be green (internal style), the specific instruction (inline style) will win for that specific wall. It's closer to the element and therefore has more immediate control.</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Style Conflict Example</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="conflict-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="conflict-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Style Conflict&lt;/title&gt;
+    &lt;style&gt;
+        p {
+            color: green; /* General rule: paragraphs are green */
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;This paragraph will be green.&lt;/p&gt;
+    &lt;p style="color: blue;"&gt;This paragraph will be blue (inline style wins!).&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <p>In this case, even though the <code>&lt;style&gt;</code> tag says all paragraphs should be green, the second paragraph has an inline <code>style="color: blue;"</code> which is more specific, so it overrides the general rule and makes that paragraph blue.</p>
+                     
+                     <div class="info-card info-box">
+                         <div class="info-card-icon"><i class="fas fa-question-circle"></i></div>
+                         <div class="info-card-content">
+                              <h4>Why Are We Learning This in an HTML Course?</h4>
+                              <p>You might be thinking, "This sounds a lot like CSS!" And you're absolutely right! The style attribute and the <code>&lt;style&gt;</code> tag are how HTML directly incorporates CSS rules. They are the gateway to styling your web pages.</p>
+                              <p>We're learning this now because:</p>
+                              <ul>
+                                  <li><strong>Immediate Visual Feedback:</strong> You can instantly see the results of your styling efforts.</li>
+                                  <li><strong>Understanding HTML's Role:</strong> It shows you how HTML elements are designed to accept styling information.</li>
+                                  <li><strong>Foundation for Future Learning:</strong> This knowledge is the absolute bedrock for understanding CSS, which you'll definitely dive into deeper very soon.</li>
+                              </ul>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('conflict-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="common-properties">
+                 <h3 class="section-title">🔧 A Quick Peek at Common HTML Styling Properties</h3>
+                 <div class="section-content">
+                     <p>You don't need to memorize these now, but just to give you an idea of the cool things you can do:</p>
+                     
+                     <div class="properties-grid">
+                         <div class="property-card">
+                             <div class="property-icon">🎨</div>
+                             <h4>color</h4>
+                             <p>Changes the text color.</p>
+                             <code>color: blue;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">🌈</div>
+                             <h4>background-color</h4>
+                             <p>Changes the background color of an element.</p>
+                             <code>background-color: yellow;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">🔤</div>
+                             <h4>font-family</h4>
+                             <p>Changes the font style.</p>
+                             <code>font-family: Arial, sans-serif;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">📏</div>
+                             <h4>font-size</h4>
+                             <p>Changes the size of the text.</p>
+                             <code>font-size: 20px;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">📍</div>
+                             <h4>text-align</h4>
+                             <p>Aligns the text (left, right, center, justify).</p>
+                             <code>text-align: center;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">📐</div>
+                             <h4>width / height</h4>
+                             <p>Sets the width and height of elements.</p>
+                             <code>width: 50%;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">🔲</div>
+                             <h4>border</h4>
+                             <p>Adds a border around an element.</p>
+                             <code>border: 1px solid black;</code>
+                         </div>
+                         
+                         <div class="property-card">
+                             <div class="property-icon">📦</div>
+                             <h4>padding</h4>
+                             <p>Adds space inside an element.</p>
+                             <code>padding: 10px;</code>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="mini-project">
+                 <h3 class="section-title">🚀 Putting It All Together (A Mini Project!)</h3>
+                 <div class="section-content">
+                     <p>Let's create a simple HTML page that uses both inline styles and the <code>&lt;style&gt;</code> tag to make it a little more visually interesting.</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Complete Mini Project Example</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="mini-project-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="mini-project-example">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Fun Styled Page!&lt;/title&gt;
+
+    &lt;style&gt;
+        /* General styles for the body */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #e0f2f7;
+            margin: 20px;
+            text-align: justify;
+        }
+
+        /* All h1 headings will look like this */
+        h1 {
+            color: #2196f3;
+            text-align: center;
+            border-bottom: 2px dashed #90caf9;
+            padding-bottom: 10px;
+        }
+
+        /* All paragraphs will look like this */
+        p {
+            color: #424242;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for ordered lists */
+        ol {
+            background-color: #f3e5f5;
+            padding: 20px;
+            border-left: 5px solid #ab47bc;
+            list-style-type: upper-roman;
+            margin-bottom: 20px;
+        }
+
+        /* Style for list items within ordered lists */
+        ol li {
+            margin-bottom: 8px;
+            color: #6a1b9a;
+        }
+
+        /* Style for buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h1&gt;Welcome to My Super Fun HTML Page!&lt;/h1&gt;
+
+    &lt;p&gt;
+        Hello there, future web developer! Isn't it amazing how just a few lines of code can start to bring your web pages to life? We're currently learning the basics of HTML, and understanding how to apply styles directly within your HTML document is a crucial first step.
+    &lt;/p&gt;
+
+    &lt;p style="color: darkred; background-color: #ffe0b2; border: 2px solid darkred; padding: 10px; border-radius: 5px;"&gt;
+        This paragraph is special! I'm using an **inline style** here to give it a unique look. Notice how it overrides the general paragraph style defined in the style tag above.
+    &lt;/p&gt;
+
+    &lt;p&gt;Here are some reasons why understanding basic HTML styling is great:&lt;/p&gt;
+    &lt;ol&gt;
+        &lt;li&gt;It helps you quickly prototype and test visual ideas.&lt;/li&gt;
+        &lt;li&gt;It provides immediate feedback on your HTML structure.&lt;/li&gt;
+        &lt;li&gt;It's the essential stepping stone to mastering CSS.&lt;/li&gt;
+        &lt;li&gt;You can make your pages look more engaging right away!&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;button&gt;Click Me for More Fun!&lt;/button&gt;
+
+    &lt;p&gt;
+        And remember, this is just the beginning! The world of web development is vast and exciting. Each concept you learn builds upon the last, like building blocks for an amazing skyscraper.
+    &lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card interactive-box">
+                         <div class="info-card-icon"><i class="fas fa-rocket"></i></div>
+                         <div class="info-card-content">
+                              <h4>Try This Out!</h4>
+                              <p>Copy and paste this code into a simple text editor (like Notepad on Windows, TextEdit on Mac, or VS Code), save it as <code>my_styled_page.html</code>, and then open it in your web browser. You'll see how the combination of the <code>&lt;style&gt;</code> tag and an inline style attribute brings the page to life!</p>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('mini-project-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="conclusion">
+                  <h3 class="section-title">✅ Key Takeaways for Your HTML Learning Journey:</h3>
+                                    <div class="section-content">
+                                        <ul>
+                                            <li><code>style</code> attribute: For styling a single HTML element directly. Think of it as "inline" styling.</li>
+                                            <li><code>&lt;style&gt;</code> tag: For defining styles that apply to multiple elements within the same HTML document. These are called "internal" or "embedded" styles.</li>
+                                            <li>CSS Rules: Inside the <code>&lt;style&gt;</code> tag (and in the <code>style</code> attribute), you write CSS rules using <code>property: value;</code> pairs.</li>
+                                            <li>Specificity: Inline styles (from the <code>style</code> attribute) are generally more specific and will override styles defined in the <code>&lt;style&gt;</code> tag if there's a conflict for the same property on the same element.</li>
+                                        </ul>
+                                        <p>You've just taken a significant step in making your web pages not just functional, but also beautiful! Keep exploring, keep creating, and most importantly, keep having fun! You're doing great!</p>
+                                    </div>
+                               </div>
+                   
+                    
+                   
+                               
+                                   
+                                   <div class="info-card-content"><div class="info-card info-box">
+                                    <div class="info-card-icon"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="info-card-content">
+                                       <h4>Up Next: HTML Classes!</h4>
+                                       <p>Ready to level up your styling game? In the next lesson, we'll explore HTML Classes, a super powerful way to apply styles to multiple elements efficiently without making your HTML messy. Get ready to organize your styles like a pro!</p>
+                                   </div>
+                               
+                   
+                                   
+                           </div>
+                           <div class="try-it-container">
+                            <button class="button button-primary" onclick="alert('Navigating to next lesson...')">
+                                 Continue to Next Lesson <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                           <nav class="bottom-nav">
+                               <a href="#" class="nav-item active" onclick="window.location.href = 'index.html'">
+                                   <div class="nav-item-icon"><i class="fas fa-home"></i></div>
+                                   <span>Home</span>
+                               </a>
+                               <a href="#" class="nav-item" onclick="window.location.href = 'index.html'">
+                                    <div class="nav-item-icon"><i class="fas fa-book-open"></i></div>
+                                    <span>Learn</span>
+                               </a>
+                               <a href="#" class="nav-item" onclick="window.location.href = 'file.html'">
+                                   <div class="nav-item-icon"><i class="fas fa-pencil-alt"></i></div>
+                                   <span>Practice</span>
+                               </a>
+                               <a href="#" class="nav-item" onclick="window.location.href = 'profile.html'">
+                                    <div class="nav-item-icon"><i class="fas fa-user"></i></div>
+                                    <span>Profile</span>
+                               </a>
+                           </nav>
+                       </div>
+                       <script src="prism/prism.js"></script>
+                       <script src="note.js"></script>
+                   
+                       <script>
+                          const myReader = new VTS({
+                               targetSelector: 'article', // Read only article content
+                               wordsPerDisplay: 4,        // Show fewer words at once
+                               theme: 'gradient',         // Use the gradient theme
+                               speechRate: 1.2            // Read slightly faster
+                           });
+                       </script>
+                   </body>
+                   </html>
