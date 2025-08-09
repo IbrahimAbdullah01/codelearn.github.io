@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML ID Attributes | CodeMaster ✨</title>
+    <link rel="stylesheet" href="prism/prism.css">
+    <link rel="stylesheet" href="note.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="prism/faw/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <button class="icon-button back-button" onclick="goBack()" aria-label="Go Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="page-title">HTML ID Attributes ✨</h1>
+            </div>
+            <div class="header-actions">
+                <button class="icon-button" id="theme-toggle-button" aria-label="Toggle Theme">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+                 
+            </div>
+        </header>
+
+        <div class="main-content" id="main-content-area">
+            <div class="topic-header">
+                <h2 class="topic-title">HTML ID Attributes</h2>
+                <p class="topic-description">Learn how to uniquely identify elements with HTML's ID attribute for precise styling, JavaScript targeting, and accessibility.</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="topic-progress-bar"></div>
+                </div>
+                <p class="progress-text" id="topic-progress-text">0% Complete</p>
+            </div>
+
+            <div class="toc" id="table-of-contents">
+                <h3 class="toc-title"><i class="fas fa-list-ul"></i>In this lesson</h3>
+                <ul class="toc-list">
+                    <li class="toc-item"><a href="#introduction" class="toc-link">👋 Introduction</a></li>
+                    <li class="toc-item"><a href="#core-concept" class="toc-link">🔑 Core Concept</a></li>
+                    <li class="toc-item"><a href="#primary-roles" class="toc-link">🎭 Primary Roles</a></li>
+                    <li class="toc-item"><a href="#characteristics" class="toc-link">📝 Key Characteristics</a></li>
+                    <li class="toc-item"><a href="#examples" class="toc-link">💡 Practical Examples</a></li>
+                    <li class="toc-item"><a href="#vs-class" class="toc-link">🆚 ID vs Class</a></li>
+                    <li class="toc-item"><a href="#conclusion" class="toc-link">🏁 Conclusion</a></li>
+                </ul>
+            </div>
+
+            <div class="content-section" id="introduction">
+                <h3 class="section-title">👋 Introduction</h3>
+                <div class="section-content">
+                    <p>Alright, excellent work understanding the concept of HTML classes and how they help us group and style elements efficiently. Now, let's turn our attention to its close relative, but distinctly different sibling: the HTML <code>id</code> attribute. If <code>class</code> is like a job title that many people can share, then <code>id</code> is much more exclusive – it's like a Social Security Number or a fingerprint: absolutely unique to one individual.</p>
+                    
+                    <div class="info-card info-box">
+                        <div class="info-card-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="info-card-content">
+                            <h4>What is an ID?</h4>
+                            <p>The <code>id</code> attribute provides a unique identifier for a single, specific HTML element on your entire web page. Unlike classes which can be reused, each ID must be unique within a document.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="core-concept">
+                <h3 class="section-title">🔑 Core Concept</h3>
+                <div class="section-content">
+                    <p>The <code>id</code> attribute allows you to give a distinct name to a single HTML element. This name <strong>must be unique</strong> within the entire HTML document. You cannot have two elements with the same <code>id</code> on the same page.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Basic ID Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="basic-id-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="basic-id-example">&lt;body&gt;
+  &lt;header id="mainHeader"&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+  &lt;/header&gt;
+  
+  &lt;main id="primaryContent"&gt;
+    &lt;p&gt;Welcome to our site!&lt;/p&gt;
+  &lt;/main&gt;
+  
+  &lt;footer id="siteFooter"&gt;
+    &lt;p&gt;© 2025 My Website&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <p>In this example, each ID (<code>mainHeader</code>, <code>primaryContent</code>, <code>siteFooter</code>) is unique to its element. This uniqueness is fundamental to how <code>id</code> works.</p>
+                </div>
+            </div>
+
+            <div class="content-section" id="primary-roles">
+                <h3 class="section-title">🎭 Primary Roles of ID</h3>
+                <div class="section-content">
+                    <p>The <code>id</code> attribute doesn't do anything visible on its own. Its power comes from how other technologies interact with it:</p>
+                    
+                    <div class="properties-grid">
+                        <div class="property-card">
+                            <div class="property-icon"><i class="fas fa-paint-brush"></i></div>
+                            <h4>Unique Styling</h4>
+                            <p>While less common than classes, IDs can be used to style a single, specific element in CSS.</p>
+                            <code>#specialElement { color: red; }</code>
+                        </div>
+                        
+                        <div class="property-card">
+                            <div class="property-icon"><i class="fas fa-code"></i></div>
+                            <h4>JavaScript Targeting</h4>
+                            <p>JavaScript relies heavily on IDs to quickly select and manipulate specific elements.</p>
+                            <code>document.getElementById()</code>
+                        </div>
+                        
+                        <div class="property-card">
+                            <div class="property-icon"><i class="fas fa-link"></i></div>
+                            <h4>Page Navigation</h4>
+                            <p>IDs enable in-page links that jump to specific sections (fragment identifiers).</p>
+                            <code>&lt;a href="#section2"&gt;</code>
+                        </div>
+                        
+                        <div class="property-card">
+                            <div class="property-icon"><i class="fas fa-universal-access"></i></div>
+                            <h4>Form Accessibility</h4>
+                            <p>IDs associate labels with form inputs for better accessibility.</p>
+                            <code>&lt;label for="inputId"&gt;</code>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card interactive-box">
+                        <div class="info-card-icon"><i class="fas fa-laptop-code"></i></div>
+                        <div class="info-card-content">
+                            <h4>Try It: CSS with ID</h4>
+                            <p>Let's see how we can style an element using its ID:</p>
+                            <div class="try-it-container">
+                                <button class="button button-primary" onclick="openCodeEditor('css-id-example')">
+                                    <i class="fas fa-laptop-code"></i> Try it yourself
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>CSS with ID Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="css-id-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="css-id-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        #specialBox {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid darkblue;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="specialBox"&gt;
+        &lt;h2&gt;Special Content Box&lt;/h2&gt;
+        &lt;p&gt;This box is styled using its ID selector in CSS.&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="regular-box"&gt;
+        &lt;p&gt;This is a regular box without special styling.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="characteristics">
+                <h3 class="section-title">📝 Key Characteristics</h3>
+                <div class="section-content">
+                    <p>Understanding these specifics will help you use IDs effectively:</p>
+                    
+                    <div class="info-card warning-box">
+                        <div class="info-card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="info-card-content">
+                            <h4>Uniqueness is Mandatory</h4>
+                            <p>An <code>id</code> must be unique within a given HTML document. If you use the same <code>id</code> more than once:</p>
+                            <ul>
+                                <li>Your HTML will still render</li>
+                                <li>CSS might apply to all matching IDs</li>
+                                <li>JavaScript will only select the first matching element</li>
+                                <li>Fragment links may not work as expected</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4>Naming Conventions:</h4>
+                    <ul>
+                        <li><strong>Case-sensitive:</strong> <code>myId</code> is different from <code>myid</code></li>
+                        <li><strong>Cannot start with a number:</strong> <code>1stElement</code> is invalid</li>
+                        <li><strong>Valid characters:</strong> Letters, numbers, hyphens (<code>-</code>), underscores (<code>_</code>)</li>
+                        <li><strong>Descriptive names:</strong> Use meaningful names like <code>mainNavigation</code> or <code>contactForm</code></li>
+                    </ul>
+                    
+                    <div class="info-card tip-box">
+                        <div class="info-card-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="info-card-content">
+                            <h4>CSS Specificity</h4>
+                            <p>In CSS, ID selectors have higher specificity than class selectors. This means styles applied via ID will override conflicting styles applied via class.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Specificity Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="specificity-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="specificity-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .highlight {
+            color: blue;
+            font-weight: bold;
+        }
+        
+        #specialParagraph {
+            color: red;
+            text-decoration: underline;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p id="specialParagraph" class="highlight"&gt;
+        This text is red and underlined (from ID), 
+        but also bold (from class). The color from ID wins!
+    &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="examples">
+                <h3 class="section-title">💡 Practical Examples</h3>
+                <div class="section-content">
+                    <p>Let's explore some common use cases for IDs in real-world scenarios:</p>
+                    
+                    <h4>1. JavaScript Interaction</h4>
+                    <p>IDs are perfect when you need to target a specific element with JavaScript:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>JavaScript Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="js-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="js-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;button id="clickMeButton"&gt;Click Me!&lt;/button&gt;
+    &lt;p id="messageDisplay"&gt;Waiting for button click...&lt;/p&gt;
+
+    &lt;script&gt;
+        const button = document.getElementById('clickMeButton');
+        const message = document.getElementById('messageDisplay');
+        
+        button.addEventListener('click', function() {
+            message.textContent = 'Button was clicked!';
+            message.style.color = 'green';
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="try-it-container">
+                        <button class="button button-primary" onclick="openCodeEditor('js-example')">
+                            <i class="fas fa-laptop-code"></i> Try it yourself
+                        </button>
+                    </div>
+                    
+                    <h4>2. Page Navigation</h4>
+                    <p>Create a table of contents that jumps to sections:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Page Navigation Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="nav-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="nav-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;nav&gt;
+        &lt;h3&gt;Table of Contents&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#section1"&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#section2"&gt;Main Content&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#section3"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+    
+    &lt;section id="section1" style="height: 300px;"&gt;
+        &lt;h2&gt;Introduction&lt;/h2&gt;
+        &lt;p&gt;This is the first section...&lt;/p&gt;
+    &lt;/section&gt;
+    
+    &lt;section id="section2" style="height: 300px;"&gt;
+        &lt;h2&gt;Main Content&lt;/h2&gt;
+        &lt;p&gt;This is the main section...&lt;/p&gt;
+    &lt;/section&gt;
+    
+    &lt;section id="section3" style="height: 300px;"&gt;
+        &lt;h2&gt;Conclusion&lt;/h2&gt;
+        &lt;p&gt;This is the final section...&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="try-it-container">
+                        <button class="button button-primary" onclick="openCodeEditor('nav-example')">
+                            <i class="fas fa-laptop-code"></i> Try it yourself
+                        </button>
+                    </div>
+                    
+                    <h4>3. Form Accessibility</h4>
+                    <p>Properly associate labels with form inputs:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Form Example</span>
+                            <div class="code-actions">
+                                <button class="code-action-button copy-code-btn" data-target="form-example" aria-label="Copy Code Snippet">
+                                    <i class="far fa-copy copy-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre class="line-numbers"><code class="language-html" id="form-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;form&gt;
+        &lt;div&gt;
+            &lt;label for="userEmail"&gt;Email Address:&lt;/label&gt;
+            &lt;input type="email" id="userEmail" name="email"&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;label for="userPassword"&gt;Password:&lt;/label&gt;
+            &lt;input type="password" id="userPassword" name="password"&gt;
+        &lt;/div&gt;
+        
+        &lt;button type="submit"&gt;Sign In&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="vs-class">
+                <h3 class="section-title">🆚 ID vs Class</h3>
+                <div class="section-content">
+                    <p>Understanding when to use <code>id</code> versus <code>class</code> is crucial for clean, maintainable HTML:</p>
+                    
+                    <div class="info-card interactive-box">
+                        <div class="info-card-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div class="info-card-content">
+                            <h4>Comparison Table</h4>
+                            <table style="width:100%; border-collapse: collapse;">
+                                <tr style="background-color: #f8f9fa;">
+                                    <th style="padding: 8px; border: 1px solid #ddd;"></th>
+                                    <th style="padding: 8px; border: 1px solid #ddd;">ID</th>
+                                    <th style="padding: 8px; border: 1px solid #ddd;">Class</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Uniqueness</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Must be unique</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Can be reused</td>
+                                </tr>
+                                <tr style="background-color: #f8f9fa;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>CSS Selector</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">#idName</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">.className</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>JavaScript</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">getElementById()</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">getElementsByClassName()</td>
+                                </tr>
+                                <tr style="background-color: #f8f9fa;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Use When...</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Targeting single elements</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Styling multiple elements</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card tip-box">
+                        <div class="info-card-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="info-card-content">
+                            <h4>Rule of Thumb</h4>
+                            <p>Use <code>class</code> when you might need the same identifier on multiple elements. Use <code>id</code> when you need to uniquely identify a single element for JavaScript targeting, in-page linking, or form accessibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="conclusion">
+                <h3 class="section-title">🏁 Conclusion</h3>
+                <div class="section-content">
+                    <p>The <code>id</code> attribute is a powerful tool in your HTML toolkit. While it might seem similar to <code>class</code> at first glance, its unique nature makes it indispensable for specific tasks like JavaScript interaction, in-page navigation, and form accessibility.</p>
+                    
+                    <p>Remember these key points:</p>
+                    <ul>
+                        <li>Each <code>id</code> must be unique within a page</li>
+                        <li>Use <code>id</code> for single-element targeting</li>
+                        <li>Prefer <code>class</code> for styling reusable components</li>
+                        <li>IDs have higher CSS specificity than classes</li>
+                        <li>IDs are essential for accessible forms and page navigation</li>
+                    </ul>
+                    
+                    <div class="info-card info-box">
+                        <div class="info-card-icon"><i class="fas fa-arrow-right"></i></div>
+                        <div class="info-card-content">
+                            <h4>What's Next?</h4>
+                            <p>Now that you understand both classes and IDs, we'll explore how to combine them effectively with HTML forms - the building blocks of user interaction on the web.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="try-it-container">
+                        <button class="button button-primary" onclick="alert('Navigating to next lesson...')">
+                            Continue to Next Lesson <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="window.location.href = 'index.html'">
+                <div class="nav-item-icon"><i class="fas fa-home"></i></div>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="window.location.href = 'index.html'">
+                <div class="nav-item-icon"><i class="fas fa-book-open"></i></div>
+                <span>Learn</span>
+            </a>
+            <a href="#" class="nav-item" onclick="window.location.href = 'file.html'">
+                <div class="nav-item-icon"><i class="fas fa-pencil-alt"></i></div>
+                <span>Practice</span>
+            </a>
+            <a href="#" class="nav-item" onclick="window.location.href = 'profile.html'">
+                <div class="nav-item-icon"><i class="fas fa-user"></i></div>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="prism/prism.js"></script>
+    <script src="script.js"></script>
+    <script src="note.js"></script>
+</body>
+</html>

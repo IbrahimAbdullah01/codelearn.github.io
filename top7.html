@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Classes & CSS Styling | CodeMaster ✨</title>
+    <link rel="stylesheet" href="prism/prism.css">
+    <link rel="stylesheet" href="note.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+   <link rel="stylesheet" href="prism/faw/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  
+
+</head>
+<body > <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <button class="icon-button back-button" onclick="goBack()" aria-label="Go Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="page-title">HTML Classes & CSS Styling ✨</h1>
+            </div>
+            <div class="header-actions">
+                 <button class="icon-button" id="theme-toggle-button" aria-label="Toggle Theme">
+                     <i class="fas fa-sun" id="theme-icon"></i> </button>
+                  
+            </div>
+        </header>
+
+        <div class="main-content" id="main-content-area">
+            <div class="topic-header">
+                <h2 class="topic-title">HTML Classes & CSS Styling</h2>
+                <p class="topic-description">Unlock the true power of HTML by learning how to use classes to create beautiful, organized, and maintainable web pages with CSS styling!</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="topic-progress-bar"></div>
+                </div>
+                <p class="progress-text" id="topic-progress-text">0% Complete</p>
+            </div>
+
+            <div class="toc" id="table-of-contents">
+                <h3 class="toc-title"><i class="fas fa-list-ul"></i>In this lesson</h3>
+                <ul class="toc-list">
+                    <li class="toc-item"><a href="#introduction" class="toc-link">🏠 The House Building Analogy</a></li>
+                    <li class="toc-item"><a href="#core-concept" class="toc-link">🎯 What is the Class Attribute?</a></li>
+                    <li class="toc-item"><a href="#power-duo" class="toc-link">⚡ Class and CSS: The Power Duo</a></li>
+                    <li class="toc-item"><a href="#characteristics" class="toc-link">🔍 Key Characteristics of Classes</a></li>
+                    <li class="toc-item"><a href="#practical-examples" class="toc-link">🚀 Practical Examples</a></li>
+                    <li class="toc-item"><a href="#best-practices" class="toc-link">💡 Best Practices & Tips</a></li>
+                    <li class="toc-item"><a href="#conclusion" class="toc-link">🏁 Conclusion</a></li>
+                </ul>
+            </div>
+
+            <div class="content-section" id="introduction">
+                 <h3 class="section-title">🏠 The House Building Analogy</h3>
+                 <div class="section-content">
+                     <p>Alright, let's pick up where we left off, diving deeper into the building blocks of the web. We've laid the groundwork with basic HTML structure, tags, and attributes. Now, it's time to explore a concept that truly unlocks the power of HTML and makes your web pages not just functional, but also beautiful and dynamic: the HTML <code>class</code> attribute.</p>
+                     
+                     <p>Think of it this way: you're building a house. You have your main structure (the <code>&lt;body&gt;</code>), and inside, you're placing various rooms and furniture (your HTML elements like <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;img&gt;</code>, etc.). Now, imagine you want to paint all the bedrooms a specific shade of blue, or you want all your antique furniture to have a glossy finish, while your modern furniture has a matte one.</p>
+                     
+                     <div class="info-card tip-box">
+                         <div class="info-card-icon"><i class="fas fa-home"></i></div>
+                         <div class="info-card-content">
+                              <h4>The Smart Approach</h4>
+                              <p>You wouldn't go to each individual bedroom or piece of furniture and tell it to be blue or glossy. Instead, you'd have a plan, a blueprint, or a set of instructions that says, "Anything designated as a 'bedroom' gets blue paint," or "Anything designated as 'antique furniture' gets a glossy finish."</p>
+                         </div>
+                     </div>
+                     
+                     <p>In the world of HTML, the <code>class</code> attribute serves a very similar purpose. It's a way to categorize and group your HTML elements, allowing you to apply common styles or behaviors to multiple elements without having to target each one individually.</p>
+                 </div>
+            </div>
+
+            <div class="content-section" id="core-concept">
+                 <h3 class="section-title">🎯 What is the Class Attribute?</h3>
+                 <div class="section-content">
+                     <p>At its heart, the <code>class</code> attribute is a descriptor. You add it to an HTML tag, and you assign it a value, which is essentially a name you give to that category of elements.</p>
+                     
+                     <p>For example, if you have several paragraphs that represent important alerts on your webpage, instead of writing repetitive inline styles:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Without Classes (Repetitive & Hard to Maintain)</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="without-classes" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="without-classes">&lt;p style="color: red; font-weight: bold;"&gt;This is an urgent message!&lt;/p&gt;
+&lt;p style="color: red; font-weight: bold;"&gt;Another critical notification.&lt;/p&gt;
+&lt;p style="color: red; font-weight: bold;"&gt;Don't forget this important update.&lt;/p&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <p>You could, with the magic of <code>class</code>, write:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>With Classes (Clean & Maintainable)</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="with-classes" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="with-classes">&lt;p class="urgent-message"&gt;This is an urgent message!&lt;/p&gt;
+&lt;p class="urgent-message"&gt;Another critical notification.&lt;/p&gt;
+&lt;p class="urgent-message"&gt;Don't forget this important update.&lt;/p&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card info-box">
+                         <div class="info-card-icon"><i class="fas fa-tag"></i></div>
+                         <div class="info-card-content">
+                              <h4>Class Names are Labels</h4>
+                              <p>Here, <code>urgent-message</code> is the "class name." It's a label you've given to these specific paragraphs. The <code>class</code> attribute doesn't do anything by itself visually - it's like having a label on a box that says "Fragile." You need something else to read that label and act on it.</p>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('with-classes')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="power-duo">
+                 <h3 class="section-title">⚡ Class and CSS: The Power Duo</h3>
+                 <div class="section-content">
+                     <p>The <code>class</code> attribute doesn't do anything by itself visually. This is where CSS (Cascading Style Sheets) comes in - your webpage's "designer." CSS uses class names to apply styles (like colors, fonts, spacing, layout, animations) to all elements that share that particular class.</p>
+                     
+                     <p>Let's revisit our "urgent message" example. With CSS, you would define the style for anything with the <code>urgent-message</code> class like this:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>CSS Styling for Classes</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="css-styling" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-css" id="css-styling">.urgent-message {
+    color: red;
+    font-weight: bold;
+    background-color: #ffe0e0; /* Light red background */
+    padding: 10px;
+    border: 1px solid #cc0000;
+    border-radius: 5px;
+}</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card warning-box">
+                         <div class="info-card-icon"><i class="fas fa-exclamation-circle"></i></div>
+                         <div class="info-card-content">
+                              <h4>The Magic Period (.)</h4>
+                              <p>Notice the period (.) before <code>urgent-message</code> in the CSS. That period tells CSS, "Hey, I'm talking about an HTML element that has this <em>class</em>." This is how CSS identifies and targets class names.</p>
+                         </div>
+                     </div>
+                     
+                     <p>Now, every paragraph (or any other HTML element!) that you give <code>class="urgent-message"</code> will automatically inherit all those beautiful styles. If you decide later that urgent messages should be purple instead of red, you only change it in <em>one place</em> in your CSS, and all your urgent messages across your entire website will update instantly!</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Complete Example: HTML + CSS</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="complete-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="complete-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .urgent-message {
+            color: red;
+            font-weight: bold;
+            background-color: #ffe0e0;
+            padding: 10px;
+            border: 1px solid #cc0000;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .success-message {
+            color: green;
+            background-color: #e0ffe0;
+            padding: 10px;
+            border: 1px solid #00cc00;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Website Notifications&lt;/h1&gt;
+    
+    &lt;p class="urgent-message"&gt;This is an urgent message!&lt;/p&gt;
+    &lt;p class="success-message"&gt;Operation completed successfully!&lt;/p&gt;
+    &lt;p class="urgent-message"&gt;Another critical notification.&lt;/p&gt;
+    &lt;p&gt;This is a regular paragraph with no special styling.&lt;/p&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('complete-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="characteristics">
+                 <h3 class="section-title">🔍 Key Characteristics of Classes</h3>
+                 <div class="section-content">
+                     <p>Let's break down the important details of how <code>class</code> works:</p>
+                     
+                     <h4>1. Multiple Elements, One Class</h4>
+                     <p>Many different HTML elements can share the <em>same</em> class name. This is its primary strength – grouping. You can have <code>&lt;p class="highlight"&gt;</code>, <code>&lt;h2 class="highlight"&gt;</code>, and <code>&lt;span class="highlight"&gt;</code> all looking a certain way because they share the "highlight" class.</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Same Class, Different Elements</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="same-class-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="same-class-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .highlight {
+            background-color: yellow;
+            padding: 5px;
+            border-left: 4px solid orange;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 class="highlight"&gt;Important Heading&lt;/h1&gt;
+    &lt;p class="highlight"&gt;This paragraph is highlighted.&lt;/p&gt;
+    &lt;span class="highlight"&gt;Even this small text is highlighted!&lt;/span&gt;
+    &lt;div class="highlight"&gt;And this entire section too.&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('same-class-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                     
+                     <h4>2. One Element, Multiple Classes</h4>
+                     <p>This is where it gets even more powerful! A single HTML element can have <em>multiple</em> class names. You simply separate them with a space.</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Multiple Classes on One Element</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="multiple-classes-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="multiple-classes-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .large {
+            font-size: 24px;
+            padding: 20px;
+        }
+        
+        .primary {
+            background-color: blue;
+            color: white;
+            border-radius: 5px;
+        }
+        
+        .shadow {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;button class="large primary"&gt;Large Primary Button&lt;/button&gt;
+    &lt;button class="large primary shadow"&gt;Large Primary Button with Shadow&lt;/button&gt;
+    &lt;button class="primary"&gt;Regular Primary Button&lt;/button&gt;
+    &lt;button class="large"&gt;Large Button (no color)&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card interactive-box">
+                         <div class="info-card-icon"><i class="fas fa-puzzle-piece"></i></div>
+                         <div class="info-card-content">
+                              <h4>Modular Design</h4>
+                              <p>The button with <code>class="large primary shadow"</code> inherits styles from all three classes. This allows for incredibly flexible and modular design - you can combine different "traits" for an element by assigning it multiple classes.</p>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('multiple-classes-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                     
+                     <h4>3. Naming Conventions</h4>
+                     <ul>
+                         <li>Class names are <strong>case-sensitive</strong> (e.g., <code>myclass</code> is different from <code>myClass</code>)</li>
+                         <li>They <strong>cannot start with a number</strong></li>
+                         <li>They <strong>can contain letters, numbers, hyphens (-), and underscores (_)</strong></li>
+                         <li>Use descriptive, meaningful names (e.g., <code>product-card</code>, <code>navigation-item</code>, <code>error-message</code>) rather than generic ones (e.g., <code>item1</code>, <code>box</code>)</li>
+                         <li>Hyphens are generally preferred over underscores (<code>my-class</code> vs <code>my_class</code>)</li>
+                     </ul>
+                     
+                     <h4>4. Class vs ID (Quick Distinction)</h4>
+                     <div class="info-card warning-box">
+                         <div class="info-card-icon"><i class="fas fa-info-circle"></i></div>
+                         <div class="info-card-content">
+                              <h4>Remember the Difference</h4>
+                              <p>While <code>class</code> is for grouping many elements, the <code>id</code> attribute is for giving a <em>unique</em> identifier to a <em>single</em> element on a page. Think of <code>id</code> as a Social Security number – only one person has it. Think of <code>class</code> as a job title – many people can be "Software Engineer."</p>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="practical-examples">
+                 <h3 class="section-title">🚀 Practical Examples</h3>
+                 <div class="section-content">
+                     <p>Let's explore some real-world examples of how classes are used to create beautiful and functional web pages.</p>
+                     
+                     <h4>Example 1: Card Layout</h4>
+                     <p>Cards are a popular design pattern for displaying content. Let's create a card system using classes:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Card Layout with Classes</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="card-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="card-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        
+        .card-title {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        
+        .card-content {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .card-featured {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+        
+        .card-warning {
+            border-color: #ffc107;
+            background-color: #fffbf0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card"&gt;
+        &lt;h3 class="card-title"&gt;Regular Card&lt;/h3&gt;
+        &lt;p class="card-content"&gt;This is a regular card with standard styling.&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="card card-featured"&gt;
+        &lt;h3 class="card-title"&gt;Featured Card&lt;/h3&gt;
+        &lt;p class="card-content"&gt;This card has both 'card' and 'card-featured' classes for special styling.&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="card card-warning"&gt;
+        &lt;h3 class="card-title"&gt;Warning Card&lt;/h3&gt;
+        &lt;p class="card-content"&gt;This card uses 'card' and 'card-warning' classes.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('card-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                     
+                     <h4>Example 2: Navigation Menu</h4>
+                     <p>Let's create a styled navigation menu using classes:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Navigation Menu with Classes</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="nav-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="nav-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .navbar {
+            background-color: #333;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: #555;
+        }
+        
+        .nav-link.active {
+            background-color: #007bff;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ul class="navbar"&gt;
+        &lt;li class="nav-item"&gt;
+            &lt;a href="#" class="nav-link nav-brand"&gt;MyWebsite&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+            &lt;a href="#" class="nav-link active"&gt;Home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+            &lt;a href="#" class="nav-link"&gt;About&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+            &lt;a href="#" class="nav-link"&gt;Services&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+            &lt;a href="#" class="nav-link"&gt;Contact&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;div style="padding: 20px;"&gt;
+        &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+        &lt;p&gt;This is the main content area. Notice how the navigation menu is styled using classes!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('nav-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                     
+                     <h4>Example 3: Text Styling Classes</h4>
+                     <p>Create utility classes for common text styling needs:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Text Utility Classes</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="text-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="text-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        
+        .text-large { font-size: 24px; }
+        .text-medium { font-size: 18px; }
+        .text-small { font-size: 14px; }
+        
+        .text-bold { font-weight: bold; }
+        .text-italic { font-style: italic; }
+        .text-underline { text-decoration: underline; }
+        
+        .text-primary { color: #007bff; }
+        .text-success { color: #28a745; }
+        .text-warning { color: #ffc107; }
+        .text-danger { color: #dc3545; }
+        
+        .bg-light { 
+            background-color: #f8f9fa; 
+            padding: 10px; 
+            margin: 5px 0; 
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="bg-light"&gt;
+        &lt;h1 class="text-center text-primary"&gt;Welcome to Our Website&lt;/h1&gt;
+        &lt;p class="text-large text-bold text-center"&gt;This is a large, bold, centered paragraph&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="bg-light"&gt;
+        &lt;p class="text-left text-success"&gt;✓ This is a success message aligned to the left&lt;/p&gt;
+        &lt;p class="text-center text-warning text-italic"&gt;⚠ This is a centered warning in italics&lt;/p&gt;
+        &lt;p class="text-right text-danger text-underline"&gt;✗ This is a right-aligned error with underline&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="bg-light"&gt;
+        &lt;p class="text-small"&gt;This is small text&lt;/p&gt;
+        &lt;p class="text-medium text-bold"&gt;This is medium bold text&lt;/p&gt;
+        &lt;p class="text-large text-primary text-center"&gt;This combines large size, primary color, and center alignment&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('text-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="best-practices">
+                 <h3 class="section-title">💡 Best Practices & Tips</h3>
+                 <div class="section-content">
+                     <h4>1. Use Meaningful Class Names</h4>
+                     <p>Choose class names that describe the purpose or content, not the appearance:</p>
+                     
+                     <div class="info-card tip-box">
+                         <div class="info-card-icon"><i class="fas fa-check"></i></div>
+                         <div class="info-card-content">
+                              <h4>Good Examples</h4>
+                              <ul>
+                                  <li><code>navigation-menu</code></li>
+                                  <li><code>product-card</code></li>
+                                  <li><code>error-message</code></li>
+                                  <li><code>user-profile</code></li>
+                                  <li><code>call-to-action</code></li>
+                              </ul>
+                         </div>
+                     </div>
+                     
+                     <div class="info-card warning-box">
+                         <div class="info-card-icon"><i class="fas fa-times"></i></div>
+                         <div class="info-card-content">
+                              <h4>Avoid These</h4>
+                              <ul>
+                                  <li><code>red-text</code> (what if you change it to blue?)</li>
+                                  <li><code>big-box</code> (what if you make it smaller?)</li>
+                                  <li><code>div1</code>, <code>item2</code> (not descriptive)</li>
+                                  <li><code>left-thing</code> (too vague)</li>
+                              </ul>
+                         </div>
+                     </div>
+                     
+                     <h4>2. Keep CSS Organized</h4>
+                     <p>Group related classes together and use comments to organize your CSS:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Organized CSS Example</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="organized-css" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-css" id="organized-css">/* Navigation Styles */
+.navbar { /* styles */ }
+.nav-item { /* styles */ }
+.nav-link { /* styles */ }
+
+/* Card Components */
+.card { /* styles */ }
+.card-title { /* styles */ }
+.card-content { /* styles */ }
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-bold { font-weight: bold; }
+.margin-top { margin-top: 20px; }</code></pre>
+                         </div>
+                     </div>
+                     
+                     <h4>3. Combine Classes Wisely</h4>
+                     <p>Use multiple classes to create flexible, reusable components:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>Smart Class Combinations</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="smart-combinations" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="smart-combinations">&lt;!-- Base button class + modifier classes --&gt;
+&lt;button class="btn"&gt;Default Button&lt;/button&gt;
+&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="btn btn-large"&gt;Large Button&lt;/button&gt;
+&lt;button class="btn btn-primary btn-large"&gt;Large Primary Button&lt;/button&gt;
+
+&lt;!-- Base card class + modifier classes --&gt;
+&lt;div class="card"&gt;Regular Card&lt;/div&gt;
+&lt;div class="card card-featured"&gt;Featured Card&lt;/div&gt;
+&lt;div class="card card-compact"&gt;Compact Card&lt;/div&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <h4>4. The Power of CSS Inheritance</h4>
+                     <p>Remember that CSS styles can inherit from parent elements. This means you can set base styles on a container and have child elements inherit them:</p>
+                     
+                     <div class="code-container">
+                         <div class="code-header">
+                             <span>CSS Inheritance Example</span>
+                             <div class="code-actions">
+                                 <button class="code-action-button copy-code-btn" data-target="inheritance-example" aria-label="Copy Code Snippet">
+                                      <i class="far fa-copy copy-icon"></i>
+                                 </button>
+                             </div>
+                         </div>
+                         <div class="code-content">
+                              <pre class="line-numbers"><code class="language-html" id="inheritance-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .article-container {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .article-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .article-meta {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;article class="article-container"&gt;
+        &lt;h1 class="article-title"&gt;Understanding CSS Classes&lt;/h1&gt;
+        &lt;div class="article-meta"&gt;Published on January 15, 2025 by CodeMaster&lt;/div&gt;
+        &lt;p&gt;This paragraph inherits the font-family, line-height, and color from the article-container class.&lt;/p&gt;
+        &lt;p&gt;So does this paragraph! No need to style each one individually.&lt;/p&gt;
+        &lt;h2&gt;This heading also inherits the base styles.&lt;/h2&gt;
+        &lt;p&gt;CSS inheritance makes styling much more efficient and consistent.&lt;/p&gt;
+    &lt;/article&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="openCodeEditor('inheritance-example')">
+                              <i class="fas fa-laptop-code"></i> Try it yourself
+                         </button>
+                     </div>
+                     
+                     <div class="info-card interactive-box">
+                         <div class="info-card-icon"><i class="fas fa-lightbulb"></i></div>
+                         <div class="info-card-content">
+                              <h4>Pro Tip: CSS and JavaScript</h4>
+                              <p>While we're focusing on CSS styling in this lesson, it's worth mentioning that JavaScript can also use class names to find and manipulate elements on your webpage. This makes classes incredibly powerful for creating interactive websites as you advance in your web development journey!</p>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="content-section" id="conclusion">
+                <h3 class="section-title">🏁 Conclusion: Unlocking Web Development Power</h3>
+                <div class="section-content">
+                    <p>The HTML <code>class</code> attribute is far more than just a simple label. It's a cornerstone of modern web development, acting as the bridge between your HTML structure and your CSS styling. By mastering the concept of classes, you gain the ability to create web pages that are not only well-organized and easy to manage but also visually appealing and incredibly efficient to build and maintain.</p>
+                    
+                    <div class="info-card tip-box">
+                         <div class="info-card-icon"><i class="fas fa-key"></i></div>
+                         <div class="info-card-content">
+                              <h4>Key Takeaways</h4>
+                              <ul>
+                                  <li>Classes group HTML elements for consistent styling</li>
+                                  <li>Use the period (.) in CSS to target class names</li>
+                                  <li>Elements can have multiple classes for flexible design</li>
+                                  <li>Choose meaningful, descriptive class names</li>
+                                  <li>Classes make your code maintainable and scalable</li>
+                              </ul>
+                         </div>
+                     </div>
+                    
+                    <p>Understanding classes is one of those foundational concepts that, once truly grasped, unlocks a whole new level of web development possibilities. You're no longer limited to basic HTML structure – you can now create beautiful, consistent, and professional-looking websites with the power of CSS styling through classes.</p>
+                    
+                    <p>As you continue your web development journey, you'll find that classes become second nature. They're the building blocks that allow you to create everything from simple styled text to complex, responsive layouts. Keep practicing, keep experimenting, and most importantly, keep building amazing things!</p>
+                    
+                    <div class="info-card info-box">
+                         <div class="info-card-icon"><i class="fas fa-arrow-right"></i></div>
+                         <div class="info-card-content">
+                              <h4>What's Next?</h4>
+                              <p>Now that you understand HTML classes and CSS styling, you're ready to explore more advanced CSS concepts like layouts, responsive design, and CSS frameworks that will take your web development skills to the next level!</p>
+                         </div>
+                     </div>
+                     
+                     <div class="try-it-container">
+                         <button class="button button-primary" onclick="alert('Navigating to next lesson...')">
+                              Continue to Next Lesson <i class="fas fa-arrow-right"></i>
+                         </button>
+                     </div>
+                </div>
+            </div>
+
+        </div>
+          <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a onclick="window.location.href='file.html'" class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <span>Editor</span>
+        </a>
+        <a onclick="window.location.href='chat.html'" class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Chat</span>
+        </a> 
+    </nav>
+    </div> <script src="prism/prism.js"></script>
+    <!--- <script src="vtr.js"></script> --->
+    <script src="script.js"></script>
+    <script src="note.js"></script>
+    
+    <script>
+       const myReader = new VTS({
+  targetSelector: 'article', // Read only article content
+  wordsPerDisplay: 4,        // Show fewer words at once
+  theme: 'gradient',         // Use the gradient theme
+  speechRate: 1.2            // Read slightly faster
+});
+    </script>
+
+</body>
+</html>
